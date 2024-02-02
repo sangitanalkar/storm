@@ -42,10 +42,12 @@ jobs:
           arch: s390x
           distro: ubuntu22.04
           githubToken: ${{ github.token }}
+          install: |
+            sudo apt-get update -q -y
+            sudo apt-get install -y ruby nodejs python3 maven
 
           run: |
             uname -a
-            sudo apt-get install -y ruby nodejs python3 maven
             echo "Nodejs version is : "
             nodejs --version
             echo "Ruby version is : "
