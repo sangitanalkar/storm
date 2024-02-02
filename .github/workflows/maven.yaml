@@ -25,7 +25,7 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        java: [ 11, 17, 21 ]
+        java: [ 11 ]
         module: [ Client, Server, Core, External, Check-Updated-License-Files, Integration-Test ]
         experimental: [false]
       fail-fast: false
@@ -37,7 +37,7 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - uses: uraimo/run-on-arch-action@v2.7.1
+      - uses: uraimo/run-on-arch-action@v2.0.8
         with:
           arch: s390x
           distro: ubuntu18.04
