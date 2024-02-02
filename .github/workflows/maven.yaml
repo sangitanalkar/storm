@@ -31,7 +31,7 @@ jobs:
           - arch: s390x
             distro: ubuntu:22.04
           - arch: amd64
-            distro: ubuntu-latest
+            distro: ubuntu:22.04
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
