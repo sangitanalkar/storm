@@ -31,11 +31,19 @@ jobs:
         java: [ 11, 17, 21 ]
         module: [ Client, Server, Core, External, Check-Updated-License-Files, Integration-Test ]
         experimental: [false]
+        include:
+          - arch: s390x
+            distro: ubuntu:22.04
+          - arch: amd64
+            distro: ubuntu-latest
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
+      - uses: uraimo/run-on-arch-action@v2
         with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
