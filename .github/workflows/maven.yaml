@@ -29,7 +29,7 @@ jobs:
         experimental: [false]
         include:
           - arch: s390x
-            distro: ubuntu:22.04
+            distro: bullseye
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
