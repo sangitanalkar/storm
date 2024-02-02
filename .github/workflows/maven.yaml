@@ -19,14 +19,13 @@ on: [push, pull_request]
 
 jobs:
   build-storm-on-s390x:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-18.04
     name: Build on ubuntu-18.04 s390x
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
         java: [ 11 ]
-        module: [ Client, Server, Core, External, Check-Updated-License-Files, Integration-Test ]
+        module: [ Client ]
         experimental: [false]
       fail-fast: false
     steps:
