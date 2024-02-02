@@ -18,8 +18,9 @@ name: Java CI with Maven
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-storm-on-amd64:
     runs-on: ${{ matrix.os }}
+    name: Build on ubuntu-latest amd64
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -27,9 +28,6 @@ jobs:
         java: [ 11, 17, 21 ]
         module: [ Client, Server, Core, External, Check-Updated-License-Files, Integration-Test ]
         experimental: [false]
-        include:
-          - arch: s390x
-            distro: ubuntu18.04
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -39,13 +37,6 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - uses: uraimo/run-on-arch-action@v2.0.8
-        with:
-          arch: ${{ matrix.arch }}
-          distro: ${{ matrix.distro }}
-          run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -76,3 +67,36 @@ jobs:
           export JDK_VERSION=${{ matrix.java }} 
           export USER=github
           /bin/bash ./dev-tools/gitact/gitact-script.sh `pwd` ${{ matrix.module }};
+
+  build-storm-on-s390x:
+    runs-on: ${{ matrix.os }}
+    name: Build on ubuntu-22.04 s390x
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        java: [ 11, 17, 21 ]
+        module: [ Client, Server, Core, External, Check-Updated-License-Files, Integration-Test ]
+        experimental: [false]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - uses: uraimo/run-on-arch-action@v2.0.8
+        with:
+          arch: s390x
+          distro: ubuntu22.04
+          githubToken: ${{ github.token }}
+
+          run: |
+            uname -a
+            echo ::set-output name=uname::$(uname -a)
+            
+      - name: Get the output
+        run: |
+          echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
