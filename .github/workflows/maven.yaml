@@ -70,7 +70,7 @@ jobs:
 
   build-storm-on-s390x:
     runs-on: ${{ matrix.os }}
-    name: Build on ubuntu-22.04 s390x
+    name: Build on ubuntu-18.04 s390x
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
@@ -90,7 +90,7 @@ jobs:
       - uses: uraimo/run-on-arch-action@v2.0.8
         with:
           arch: s390x
-          distro: ubuntu22.04
+          distro: ubuntu18.04
           githubToken: ${{ github.token }}
 
           run: |
