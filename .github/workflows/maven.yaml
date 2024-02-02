@@ -94,9 +94,8 @@ jobs:
           githubToken: ${{ github.token }}
 
           run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
+            uname -a 
             
       - name: Get the output
         run: |
-          echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
+          uname -a 
