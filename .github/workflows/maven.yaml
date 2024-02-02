@@ -29,12 +29,12 @@ jobs:
         experimental: [false]
         include:
           - arch: s390x
-            distro: bullseye
+            distro: ubuntu18.04
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-      - uses: uraimo/run-on-arch-action@v2
+      - uses: uraimo/run-on-arch-action@v2.0.8
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
