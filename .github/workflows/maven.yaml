@@ -30,9 +30,6 @@ jobs:
         include:
           - arch: s390x
             distro: ubuntu:22.04
-          - arch: none
-            distro: none
-            base_image: ubuntu:22.04
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
@@ -41,7 +38,6 @@ jobs:
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
-          base_image: ${{ matrix.base_image }}
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
