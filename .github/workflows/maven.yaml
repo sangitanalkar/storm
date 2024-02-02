@@ -40,7 +40,7 @@ jobs:
       - uses: uraimo/run-on-arch-action@v2.7.1
         with:
           arch: s390x
-          distro: ubuntu22.04
+          distro: ubuntu18.04
           githubToken: ${{ github.token }}
           install: |
             sudo apt-get update -q -y
