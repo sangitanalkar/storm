@@ -34,7 +34,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
-      - uses: uraimo/run-on-arch-action@v2.0.8
         with:
           arch: ${{ matrix.arch }}
           distro: ${{ matrix.distro }}
@@ -42,6 +41,10 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+      - uses: uraimo/run-on-arch-action@v2.0.8
+        with:
+          arch: ${{ matrix.arch }}
+          distro: ${{ matrix.distro }}
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
